@@ -1,0 +1,2 @@
+## Example:
+python3 scraper.py -u https://rezzshop.com/collections/apparel/products/pre-order-rezz-v2-baseball-jersey https://rezzshop.com/collections/apparel/products/rezz-queen-space-mom-baseball-jersey https://rezzshop.com/collections/apparel/products/rezz-as-above-black-crewneck-sweatshirt
