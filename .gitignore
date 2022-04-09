@@ -1,1 +1,5 @@
 env
+errors.log
+subscribed_users.txt
+.vscode
+__pycache__

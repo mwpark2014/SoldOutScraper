@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import argparse
+from slackbot import SlackBot
 
 parser = argparse.ArgumentParser(description='Sold Out Scraper')
 parser.add_argument("-u", "--urls", nargs='+', help="URLs to scrape")
@@ -8,10 +9,12 @@ parser.add_argument("-u", "--urls", nargs='+', help="URLs to scrape")
 class Scraper:
   def __init__(self, urls):
     self.urls = urls
+    self.slackbot = SlackBot()
 
   def check_urls(self):
     page_by_url = self.grab_html()
-    print(self.parse_html(page_by_url))
+    for url in self.parse_html(page_by_url):
+      self.slackbot.send_notification(f'{url} is no longer out of stock!')
 
   def grab_html(self):
     page_by_url = {}
@@ -19,7 +22,7 @@ class Scraper:
       page_by_url[url] = requests.get(url)
     return page_by_url
 
-  def parse_html(self, page_by_url):
+  def parse_html(self, page_by_url:dict):
     outputs = []
     for url, page in page_by_url.items():
       soup = BeautifulSoup(page.content, 'html.parser')
