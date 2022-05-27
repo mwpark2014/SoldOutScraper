@@ -19,7 +19,9 @@ class Scraper:
   def grab_html(self):
     page_by_url = {}
     for url in self.urls:
-      page_by_url[url] = requests.get(url)
+      page = requests.get(url)
+      if page.status_code == 200:
+        page_by_url[url] = page
     return page_by_url
 
   def parse_html(self, page_by_url:dict):
